@@ -207,15 +207,16 @@ async def get_address(message: Message, state: FSMContext):
     data = await state.get_data()
     gift_number = get_count() + 1
 
-    add_user(
-        tg_id=tg_id,
-        full_name=data["full_name"],
-        xj_id=data["xj_id"],
-        qualification=data["qualification"],
-        phone=data["phone"],
-        address=address,
-        gift_number=gift_number
-    )
+add_user(
+    tg_id=tg_id,
+    username=message.from_user.username,
+    full_name=data["full_name"],
+    xj_id=data["xj_id"],
+    qualification=data["qualification"],
+    phone=data["phone"],
+    address=address,
+    gift_number=gift_number
+)
 
     username = message.from_user.username
     telegram_name = message.from_user.full_name
