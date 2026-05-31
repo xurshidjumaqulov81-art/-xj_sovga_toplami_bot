@@ -147,7 +147,7 @@ async def get_qualification(message: Message, state: FSMContext):
 
 
 @dp.message(Registration.phone, F.text == "ТУШУНАРЛИ ✅")
-async def ask_phone(message: Message, state: FSMContext):
+async def ask_phone(message: Message):
     await message.answer(
         "📞 Жўнатмани расмийлаштириш учун телефон рақамингизни киритинг.\n\n"
         "📝 Намуна: +998901234567",
@@ -158,6 +158,9 @@ async def ask_phone(message: Message, state: FSMContext):
 @dp.message(Registration.phone)
 async def get_phone(message: Message, state: FSMContext):
     phone = message.text.strip()
+
+    if phone == "ТУШУНАРЛИ ✅":
+        return
 
     if len(phone) < 9:
         await message.answer(
@@ -207,16 +210,16 @@ async def get_address(message: Message, state: FSMContext):
     data = await state.get_data()
     gift_number = get_count() + 1
 
-add_user(
-    tg_id=tg_id,
-    username=message.from_user.username,
-    full_name=data["full_name"],
-    xj_id=data["xj_id"],
-    qualification=data["qualification"],
-    phone=data["phone"],
-    address=address,
-    gift_number=gift_number
-)
+    add_user(
+        tg_id=tg_id,
+        username=message.from_user.username,
+        full_name=data["full_name"],
+        xj_id=data["xj_id"],
+        qualification=data["qualification"],
+        phone=data["phone"],
+        address=address,
+        gift_number=gift_number
+    )
 
     username = message.from_user.username
     telegram_name = message.from_user.full_name
@@ -243,6 +246,7 @@ add_user(
         f"🎁 Сизнинг совға рақамингиз: {gift_number}\n\n"
         "XJ жамоаси сизга бизнесингизда ўсиш, тизимли ишлаш "
         "ва юқори натижалар тилайди.\n\n"
+        "Тез орада масъул ходимлар сиз билан боғланади."
     )
 
     await state.clear()
