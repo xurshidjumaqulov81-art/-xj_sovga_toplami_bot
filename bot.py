@@ -242,7 +242,6 @@ async def get_address(message: Message, state: FSMContext):
         f"🎁 Сизнинг совға рақамингиз: {gift_number}\n\n"
         "XJ жамоаси сизга бизнесингизда ўсиш, тизимли ишлаш "
         "ва юқори натижалар тилайди.\n\n"
-        "Тез орада масъул ходимлар сиз билан боғланади."
     )
 
     await state.clear()
